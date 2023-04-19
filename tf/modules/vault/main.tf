@@ -1,6 +1,11 @@
-provider "vault" {
-  address = var.vault_address
-  token   = var.vault_token
+terraform {
+  required_version = ">= 1.0.7"
+
+  required_providers {
+    vault = {
+      version = "3.0.1"
+    }
+  }
 }
 
 resource "vault_audit" "audit" {

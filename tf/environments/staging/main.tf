@@ -1,25 +1,8 @@
-terraform {
-  required_version = ">= 1.0.7"
-
-  required_providers {
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "2.15.0"
-    }
-
-    vault = {
-      version = "3.0.1"
-    }
-  }
-}
-
 module "vault" {
 
   source = "../../modules/vault"
 
   environment             = var.environment
-  vault_address           = "http://localhost:8401"
-  vault_token             = "986755ra-5590-5ec5-7b37-a285e463a379"
   vault_audit_file_path   = "/vault/logs/audit"
   vault_auth_backend_type = "userpass"
 }
@@ -44,6 +27,8 @@ module "account" {
 
   container_vault_address = var.container_vault_address
   container_password_prefix = "123-account"
+
+  depends_on = [module.vault]
 }
 
 module "gateway" {
@@ -56,6 +41,8 @@ module "gateway" {
 
   container_vault_address = var.container_vault_address
   container_password_prefix = "123-gateway"
+
+  depends_on = [module.vault]
 }
 
 module "payment" {
@@ -68,4 +55,6 @@ module "payment" {
 
   container_vault_address = var.container_vault_address
   container_password_prefix = "123-payment"
+
+  depends_on = [module.vault]
 }

@@ -14,12 +14,6 @@ variable "db_password" {
   description = "The payment database password to be used in the secret"
 }
 
-variable "policy_capabilities" {
-  type = list
-  default = ["list", "read"]
-  description = "The payment vault policy capabilities to be defined"
-}
-
 variable "ignore_absent_fields" {
   type = bool
   default = true

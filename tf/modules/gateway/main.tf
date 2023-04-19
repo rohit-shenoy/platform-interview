@@ -1,3 +1,18 @@
+terraform {
+  required_version = ">= 1.0.7"
+
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "2.15.0"
+    }
+
+    vault = {
+      version = "3.0.1"
+    }
+  }
+}
+
 resource "vault_generic_secret" "gateway_secret" {
   provider = vault
   path     = "secret/${var.environment}/gateway"
@@ -17,7 +32,7 @@ resource "vault_policy" "gateway_policy" {
   policy = <<EOT
 
 path "secret/data/${var.environment}/gateway" {
-    capabilities = ${var.policy_capabilities}
+    capabilities = ["list", "read"]
 }
 
 EOT
@@ -25,7 +40,7 @@ EOT
 
 resource "vault_generic_endpoint" "gateway_endpoint" {
   provider             = vault
-  depends_on           = [vault_auth_backend.userpass]
+  #depends_on           = [vault.vault_auth_backend.userpass]
   path                 = "auth/userpass/users/gateway-${var.environment}"
   ignore_absent_fields = var.ignore_absent_fields
 
@@ -44,7 +59,7 @@ resource "docker_container" "gateway_container" {
   env = [
     "VAULT_ADDR=${var.container_vault_address}",
     "VAULT_USERNAME=gateway-${var.environment}",
-    "VAULT_PASSWORD=${container_password_prefix}-${var.environment}",
+    "VAULT_PASSWORD=${var.container_password_prefix}-${var.environment}",
     "ENVIRONMENT=${var.environment}"
   ]
 
