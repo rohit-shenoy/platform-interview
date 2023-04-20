@@ -1,4 +1,5 @@
 <h3> Overview </h3>
+---
 Welcome, the diagram for the code refactoring/repository I've setup is here below:
 
 ```
@@ -56,7 +57,7 @@ $ terraform apply
 ```
 
 <h3> Design Choices: </h3>
-
+---
 
 1. Anything that gets used in more than one environment is refactored into modules (DRY)
 
@@ -87,6 +88,7 @@ I haven't used any `terragrunt` or other workspace configuration.
 
 
 <h3> How your code would fit into a CI/CD pipeline? </h3>
+---
 
 In production, instantiating a module like above & setting up input/output variables, providers, and remote state is still challenging.
 
@@ -100,6 +102,7 @@ In production, instantiating a module like above & setting up input/output varia
 
 
 <h3> Anything beyond the scope of this task that you would consider when running this code in a real production environment? </h3>
+---
 
 - All credentials (sensitive) should be stored in a Secret store (AWS SSM, Hashicorp Vault, Azure Key Vault etc) and NOT in version control like here (`db_passwords`, `vault_tokens` etc.) and access to the credentials be protected using Role based access control. 
 
