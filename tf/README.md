@@ -1,4 +1,4 @@
-<h4> Overview </h4>
+<h3> Overview </h3>
 Welcome, the diagram for the code refactoring/repository I've setup is here below:
 
 ```
@@ -55,7 +55,7 @@ $ terraform init
 $ terraform apply
 ```
 
-<h4> Design Choices: </h4>
+<h3> Design Choices: </h3>
 
 
 1. Anything that gets used in more than one environment is refactored into modules (DRY)
@@ -86,7 +86,7 @@ I haven't used any `terragrunt` or other workspace configuration.
 [X] If you are new to Terraform let us know.
 
 
-<h4> How your code would fit into a CI/CD pipeline? </h4>
+<h3> How your code would fit into a CI/CD pipeline? </h3>
 
 In production, instantiating a module like above & setting up input/output variables, providers, and remote state is still challenging.
 
@@ -99,7 +99,7 @@ In production, instantiating a module like above & setting up input/output varia
 - CI/CD pipelines should run  `terraform fmt` and `terraform validate` automatically.
 
 
-<h4> Anything beyond the scope of this task that you would consider when running this code in a real production environment? </h4>
+<h3> Anything beyond the scope of this task that you would consider when running this code in a real production environment? </h3>
 
 - All credentials (sensitive) should be stored in a Secret store (AWS SSM, Hashicorp Vault, Azure Key Vault etc) and NOT in version control like here (`db_passwords`, `vault_tokens` etc.) and access to the credentials be protected using Role based access control. 
 
