@@ -33,8 +33,8 @@ popd
 pushd /vagrant/tf/environments/production
 terraform init -upgrade
 terraform apply -auto-approve
-# popd
-# pushd /vagrant/tf/environments/staging
-# terraform init -upgrade
-# terraform apply -auto-approve
+popd
+pushd /vagrant/tf/environments/staging
+terraform init -upgrade
+terraform apply -auto-approve
 popd
